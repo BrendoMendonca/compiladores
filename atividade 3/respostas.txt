@@ -1,0 +1,15 @@
+1. Qual o menor número de registradores necessários para calcular a expressão a₁ + a₂ + ... + aₙ em assembly?
+   
+   R: Um (1) registrador. A soma é associativa. O valor pode ser acumulado diretamente no registrador RAX.
+   
+2. Qual o menor número de registradores necessários para calcular a expressão (a₁₁*a₁₂*...*a₁n)+...+(aₘ₁*aₘ₂*...*aₘₙ) em assembly?
+   
+   R: Dois (2) registradores. Um registrador (e.g., RAX) é usado para calcular o produto de cada termo (a₁₁*a₁₂*...), e um segundo registrador (e.g., RBX) é usado para acumular a soma total dos termos.
+   
+3. Existe alguma forma de calcular expressões aritméticas constantes (com soma, subtração, multiplicação e divisão) de tamanho arbitrário com um número limitado de registradores, ou o número de registradores pode crescer sem limite?
+   
+   R: É possível calcular expressões de tamanho arbitrário com um número limitado de registradores. 
+   
+   Justificativa:
+   a) O compilador pode pré-calcular o resultado da expressão em tempo de compilação, gerando apenas uma instrução 'mov $VALOR_FINAL, %rax'.
+   b) Se o cálculo tiver que ser feito em tempo de execução, o compilador pode usar a pilha (stack) como memória auxiliar para salvar resultados intermediários (PUSH e POP) quando os registradores de uso geral se esgotarem. Como a pilha pode crescer, o número de registradores físicos usados pela CPU permanece limitado.
