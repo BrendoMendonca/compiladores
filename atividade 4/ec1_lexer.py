@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import sys
 
 # 1. Definição dos Tipos de Tokens (Classes Léxicas)
