@@ -1,8 +1,6 @@
-#!/usr/bin/env python3
-
 import sys
 
-# 1. Definição dos Tipos de Tokens (Classes Léxicas)
+#definição dos Tipos de Tokens (Classes Léxicas)
 class TipoToken:
     # Literais
     NUMERO = 'NUMERO'
@@ -17,7 +15,7 @@ class TipoToken:
     # Fim de Arquivo
     EOF = 'EOF'
 
-# 2. Estrutura de Dados do Token 
+#Estrutura de Dados do Token 
 class Token:
     def __init__(self, tipo, lexema, posicao):
         self.tipo = tipo
@@ -28,11 +26,11 @@ class Token:
         # Formato de saída para visualização: <Tipo, Lexema, Posicao> 
         return f"<{self.tipo}, \"{self.lexema}\", {self.posicao}>"
 
-# 3. O Analisador Léxico (Lexer)
+#Analisador Léxico (Lexer)
 class Lexer:
     def __init__(self, codigo_fonte):
         self.codigo = codigo_fonte
-        self.cursor = 0   # Posição atual no código [cite: 65]
+        self.cursor = 0   # Posição atual no código
 
     def _avancar(self):
         """Avança o cursor e retorna o caractere atual."""
@@ -50,7 +48,7 @@ class Lexer:
             self.cursor += 1
 
     def _identificar_numero(self):
-        """Identifica uma sequência de dígitos (literal inteiro)[cite: 48]."""
+        """Identifica uma sequência de dígitos (literal inteiro)"""
         lexema = ""
         pos_inicial = self.cursor
         
@@ -78,8 +76,8 @@ class Lexer:
         if char == '/':
             return Token(TipoToken.DIV, '/', pos_inicial)
         
-        # 4. Tratamento de Erro Léxico [cite: 90, 95]
-        # Se chegou aqui, é um caractere fora do conjunto EC1 (parênteses, operadores e dígitos).
+        #Tratamento de Erro Léxico
+        # Se chegou, é um caractere fora do conjunto EC1 (parênteses, operadores e dígitos).
         print(f"Erro léxico na posição {pos_inicial}: Caractere não reconhecido '{char}'", file=sys.stderr)
         sys.exit(1)
 
@@ -105,7 +103,7 @@ class Lexer:
         print(f"Erro léxico na posição {self.cursor}: Caractere inválido '{char}'", file=sys.stderr)
         sys.exit(1)
 
-# 4. Execução do Analisador Léxico
+#Execução do Analisador Léxico
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print(f"Uso: {sys.argv[0]} <arquivo_de_entrada.ec1>", file=sys.stderr)
@@ -120,11 +118,11 @@ if __name__ == "__main__":
         print(f"Erro: Arquivo '{nome_arquivo}' não encontrado.", file=sys.stderr)
         sys.exit(1)
 
-    # Cria o analisador e gera a sequência de tokens (todos de uma vez, interface 2 [cite: 104])
+    # Cria o analisador e gera a sequência de tokens (todos de uma vez, interface 2
     lexer = Lexer(codigo_fonte)
     tokens = []
     
-    # Exemplo: (33 + (912 * 11)) [cite: 72]
+    # Exemplo: (33 + (912 * 11))
     print(f"--- Análise Léxica para: {nome_arquivo} ---")
     
     while True:
