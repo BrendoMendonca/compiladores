@@ -1,3 +1,8 @@
+"EQUIPE"
+"BRENDO DE ALMEIDA MENDONÇA"
+"GABRIEL DANTAS DE SOUSA"
+"VINICIUS NEGREIROS DE MELO"
+
 import sys
 
 #definição dos Tipos de Tokens (Classes Léxicas)

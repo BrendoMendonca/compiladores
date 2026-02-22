@@ -1,0 +1,16 @@
+# --- Casos de Sucesso (Exemplos do PDF) ---
+333
+(3*7)
+(3+(4+(11+7)))
+(33+(912*11))
+((427/7)+(11*(231+5)))
+
+# --- Casos Adicionais de Operações ---
+((10-5)*(20/4))
+(100/(2*(10+15)))
+
+# --- Casos de Erro (Devem falhar conforme item 10) ---
+3+5
+(10+5
+((3+4)*5
+(3 & 5)
