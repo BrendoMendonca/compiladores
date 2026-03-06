@@ -1,5 +1,5 @@
 class Position:
-    """Rastreia linha e coluna para reporte de erros"""
+    """Rastreia a localização exata do cursor no código fonte"""
     def __init__(self, offset=0, line=1, column=1):
         self.offset = offset
         self.line = line
@@ -9,7 +9,7 @@ class Position:
         return f"(linha {self.line}, coluna {self.column})"
 
 class Token:
-    """Representa os símbolos da linguagem EC1"""
+    """Objeto que representa cada símbolo identificado"""
     def __init__(self, position, lexeme, kind):
         self.position = position
         self.lexeme = lexeme
@@ -19,7 +19,7 @@ class Token:
         return f"Token({self.kind}, '{self.lexeme}', {self.position})"
 
 def lexer(entrada: str):
-    """Gera a lista de tokens para o compilador EC1"""
+    """Transforma a string de entrada em uma lista de objetos Token"""
     tokens = []
     i = 0
     pos = Position(0, 1, 1)
@@ -32,12 +32,12 @@ def lexer(entrada: str):
             pos.offset += 1; pos.column += 1; i += 1
             continue
 
-        # Trata quebras de linha
+        # Trata quebras de linha para manter a contagem correta
         if c == '\n':
             pos.line += 1; pos.column = 1; pos.offset += 1; i += 1
             continue
 
-        # Símbolos da linguagem EC1 [cite: 26, 27]
+        # Reconhecimento de símbolos de um único caractere
         mapa_simbolos = {
             '(': "OPEN_P", ')': "CLOSE_P",
             '+': "SUM",    '-': "SUB",
@@ -49,7 +49,7 @@ def lexer(entrada: str):
             pos.offset += 1; pos.column += 1; i += 1
             continue
 
-        # Literais Inteiros [cite: 28, 29]
+        # Reconhecimento de literais inteiros (números)
         if c.isdigit():
             start = Position(pos.offset, pos.line, pos.column)
             lex = ""
@@ -59,8 +59,9 @@ def lexer(entrada: str):
             tokens.append(Token(start, lex, "LITERAL"))
             continue
 
-        # Erro léxico para caracteres inválidos
+        # Caso encontre um caractere não previsto na gramática EC2
         raise SyntaxError(f"Erro Léxico: Caractere inválido '{c}' em {pos}")
 
+    # Garante que o Parser saiba onde o arquivo termina
     tokens.append(Token(pos, "", "EOF"))
     return tokens
