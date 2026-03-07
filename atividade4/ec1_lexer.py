@@ -27,17 +27,17 @@ def lexer(entrada: str):
     while i < len(entrada):
         c = entrada[i]
 
-        # Ignora espaços em branco
+        #ignora espaços em branco
         if c in ' \t\r':
             pos.offset += 1; pos.column += 1; i += 1
             continue
 
-        # Trata quebras de linha
+        #trata quebras de linha
         if c == '\n':
             pos.line += 1; pos.column = 1; pos.offset += 1; i += 1
             continue
 
-        # Símbolos da linguagem EC1 [cite: 26, 27]
+        #símbolos da linguagem EC1
         mapa_simbolos = {
             '(': "OPEN_P", ')': "CLOSE_P",
             '+': "SUM",    '-': "SUB",
@@ -49,7 +49,7 @@ def lexer(entrada: str):
             pos.offset += 1; pos.column += 1; i += 1
             continue
 
-        # Literais Inteiros [cite: 28, 29]
+        #literais Inteiros
         if c.isdigit():
             start = Position(pos.offset, pos.line, pos.column)
             lex = ""
@@ -59,8 +59,35 @@ def lexer(entrada: str):
             tokens.append(Token(start, lex, "LITERAL"))
             continue
 
-        # Erro léxico para caracteres inválidos
+        #erro léxico para caracteres inválidos
         raise SyntaxError(f"Erro Léxico: Caractere inválido '{c}' em {pos}")
 
     tokens.append(Token(pos, "", "EOF"))
     return tokens
+
+if __name__ == "__main__":
+    import sys
+
+    # Verifica se o nome do arquivo foi passado como argumento
+    if len(sys.argv) < 2:
+        print("Uso: python3 ec1_lexer.py <arquivo_entrada>")
+        sys.exit(1)
+
+    caminho_arquivo = sys.argv[1]
+
+    try:
+        # Lê o conteúdo do arquivo
+        with open(caminho_arquivo, 'r') as f:
+            conteudo = f.read()
+        
+        # Executa o lexer
+        lista_tokens = lexer(conteudo)
+        
+        # Imprime a sequência conforme o requisito
+        for token in lista_tokens:
+            print(token)
+
+    except FileNotFoundError:
+        print(f"Erro: O arquivo '{caminho_arquivo}' não foi encontrado.")
+    except SyntaxError as e:
+        print(e)
