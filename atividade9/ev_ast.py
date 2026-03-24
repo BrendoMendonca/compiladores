@@ -4,11 +4,11 @@ class Programa:
         self.exp_final = exp_final
 
     def gen(self, code):
-        # 1. Gera código para cada declaração (atribuições)
+        #era código para cada declaração (atribuições)
         for decl in self.declaracoes:
             decl.gen(code)
         
-        # 2. Gera código para a expressão final de resultado
+        #gera código para a expressão final de resultado
         self.exp_final.gen(code)
 
 class Declaracao:
@@ -18,15 +18,15 @@ class Declaracao:
 
     def gen(self, code):
         code.append(f"    # Atribuição: {self.nome}")
-        self.exp.gen(code) # O resultado da expressão termina em RAX
-        code.append(f"    mov %rax, {self.nome}") # Move RAX para a memória da variável
+        self.exp.gen(code) #o resultado da expressão termina em RAX
+        code.append(f"    mov %rax, {self.nome}") #move RAX para a memória da variável
 
 class Var:
     def __init__(self, nome):
         self.nome = nome
 
     def gen(self, code):
-        # Carrega o valor da variável da memória para o registrador RAX
+        #carrega o valor da variável da memória para o registrador RAX
         code.append(f"    mov {self.nome}, %rax")
 
 class Const:
@@ -44,7 +44,7 @@ class OpBin:
         self.left, self.op, self.right = left, op, right
 
     def gen(self, code):
-        # Lógica de pilha para operações binárias
+        #lógica de pilha para operações binárias
         self.right.gen(code)
         code.append("    push %rax")
         self.left.gen(code)

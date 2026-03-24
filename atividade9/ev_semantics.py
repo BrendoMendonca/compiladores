@@ -6,7 +6,7 @@ class SemanticError(Exception):
 
 class SemanticAnalyzer:
     def __init__(self):
-        # Tabela de Símbolos: armazena nomes de variáveis declaradas
+        #tabela de Símbolos - armazena nomes de variáveis declaradas
         self.symbol_table = set()
 
     def visit(self, node):
@@ -25,26 +25,26 @@ class SemanticAnalyzer:
             raise RuntimeError(f"Nó desconhecido: {type(node)}")
 
     def visit_Programa(self, node):
-        # 1. Analisa cada declaração na ordem em que aparecem
+        #analisa cada declaração na ordem em que aparecem
         for decl in node.declaracoes:
             self.visit(decl)
         
-        # 2. Analisa a expressão final de resultado 
+        #analisa a expressão final de resultado 
         self.visit(node.exp_final)
         print("Análise Semântica concluída: Todas as variáveis foram declaradas corretamente.")
 
     def visit_Declaracao(self, node):
-        # Primeiro verifica a expressão da direita antes de declarar a variável
+        #primeiro verifica a expressão da direita antes de declarar a variável
         self.visit(node.exp)
-        # Se a expressão for válida, adiciona o nome à tabela
+        #se a expressão for válida, adiciona o nome à tabela
         self.symbol_table.add(node.nome)
 
     def visit_OpBin(self, node):
-        # Verifica recursivamente os dois lados da operação 
+        #verifica recursivamente os dois lados da operação 
         self.visit(node.left)
         self.visit(node.right)
 
     def visit_Var(self, node):
-        # O ponto crítico: verifica se o nome existe na tabela
+        #o ponto crítico: verifica se o nome existe na tabela
         if node.nome not in self.symbol_table:
             raise SemanticError(f"Erro Semântico: Variável '{node.nome}' usada antes de ser declarada.")

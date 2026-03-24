@@ -6,7 +6,7 @@
 .section .bss
     .lcomm a, 8
     .lcomm b, 8
-# O compilador inserirá aqui as diretivas .lcomm para cada variável [cite: 142, 165]
+# O compilador inserirá aqui as diretivas .lcomm para cada variável
 
 .section .text
 .globl _start

@@ -18,7 +18,7 @@ def lexer(entrada: str):
         if c in ' \t\r': i += 1; pos.column += 1; continue
         if c == '\n': i += 1; pos.line += 1; pos.column = 1; continue
 
-        # Identificadores (começam com letra)
+        #identificadores (começam com letra)
         if c.isalpha():
             start = Position(i, pos.line, pos.column)
             lex = ""
@@ -27,7 +27,7 @@ def lexer(entrada: str):
             tokens.append(Token(start, lex, "IDENT"))
             continue
 
-        # Literais Inteiros
+        #literais Inteiros
         if c.isdigit():
             start = Position(i, pos.line, pos.column)
             lex = ""
@@ -36,7 +36,7 @@ def lexer(entrada: str):
             tokens.append(Token(start, lex, "LITERAL"))
             continue
 
-        # Símbolos 
+        #símbolos 
         mapa = {'(': "OPEN_P", ')': "CLOSE_P", '+': "SUM", '-': "SUB", 
                 '*': "MUL", '/': "DIV", '=': "ASSIGN", ';': "SEMI"}
         if c in mapa:

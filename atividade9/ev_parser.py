@@ -11,11 +11,11 @@ class TokenStream:
 
 def parse_programa(ts):
     decls = []
-    # Enquanto o próximo token for um nome de variável, é uma declaração
+    #enquanto o próximo token for um nome de variável, é uma declaração
     while ts.peek().kind == "IDENT":
         decls.append(parse_decl(ts))
     
-    # A expressão final obrigatoriamente começa com '='
+    #a expressão final obrigatoriamente começa com '='
     if ts.next().kind != "ASSIGN":
         raise SyntaxError("Esperado '=' para a expressão final")
     
@@ -23,7 +23,7 @@ def parse_programa(ts):
     return Programa(decls, final_exp)
 
 def parse_decl(ts):
-    nome = ts.next().lexeme # Identificador
+    nome = ts.next().lexeme #identificador
     if ts.next().kind != "ASSIGN": raise SyntaxError("Esperado '=' na atribuição")
     exp = parse_exp(ts)
     if ts.next().kind != "SEMI": raise SyntaxError("Esperado ';' após declaração")
@@ -47,7 +47,7 @@ def parse_exp_m(ts):
 def parse_prim(ts):
     tok = ts.next()
     if tok.kind == "LITERAL": return Const(int(tok.lexeme))
-    if tok.kind == "IDENT": return Var(tok.lexeme) # Variável como primário
+    if tok.kind == "IDENT": return Var(tok.lexeme) #variável como primário
     if tok.kind == "OPEN_P":
         node = parse_exp(ts)
         if ts.next().kind != "CLOSE_P": raise SyntaxError("Esperado ')'")
