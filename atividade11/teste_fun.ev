@@ -1,0 +1,13 @@
+var x = 10;
+
+fun dobrar(n) {
+    var dobro = 0;
+    dobro = n * 2;
+    return dobro;
+}
+
+main {
+    var resultado = 0;
+    resultado = dobrar(x);
+    return resultado;
+}

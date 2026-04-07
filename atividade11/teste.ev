@@ -1,0 +1,13 @@
+var global_x = 10;
+
+fun calcular_dobro(n) {
+    var d = 0;
+    d = n * 2;
+    return d;
+}
+
+main {
+    var res = 0;
+    res = calcular_dobro(global_x);
+    return res;
+}
