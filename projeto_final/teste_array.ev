@@ -1,0 +1,16 @@
+var vetor_global[2];
+var vetor_local[3];
+var index = 0;
+
+main {
+    # Preenche o array local
+    vetor_local[0] = 5;
+    vetor_local[1] = 10;
+    vetor_local[2] = 20;
+    
+    # Preenche o array global
+    vetor_global[0] = vetor_local[1] * 2; # 10 * 2 = 20
+    
+    # Retorna a soma de tudo (5 + 10 + 20 + 20 = 55)
+    return vetor_local[0] + vetor_local[1] + vetor_local[2] + vetor_global[0];
+}
