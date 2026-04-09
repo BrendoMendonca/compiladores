@@ -31,7 +31,7 @@ A compilação é dividida na tradução para Assembly (via Python) e a montagem
 
 **1. Gere o código Assembly (`out.s`) a partir do arquivo fonte (`.ev`):**
 <pre>
-python3 ev_compiler.py arquivo_fonte.ev out.s 
+python3 ev_compiler.py teste_array.ev out.s 
 </pre>
 
 **2. Monte o executável**

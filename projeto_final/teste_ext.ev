@@ -1,6 +1,6 @@
 var vetor_global[2];
-var vetor_local[3];  # Movido para o escopo global
-var index = 0;       # Movido para o escopo global
+var vetor_local[3]; 
+var index = 0;       
 
 main {
     # Preenche o array 
