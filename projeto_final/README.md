@@ -1,57 +1,73 @@
-# Compilador - Linguagem Fun (Atividade 11)
+# Projeto Final - Compilador Linguagem Fun
 
-Este repositório contém a implementação do compilador para a **Linguagem Fun**, desenvolvida para a disciplina de Construção de Compiladores. A linguagem suporta declaração de variáveis globais e locais, estruturas de controle (`if`, `while`), funções com passagem de parâmetros e recursividade.
+Este repositório contém a implementação final do compilador para a **Linguagem Fun**, desenvolvida para a disciplina de Construção de Compiladores. A linguagem base (Atividade 11) é Turing-completa e foi expandida com diversas extensões sintáticas e semânticas.
 
-## 📋 Pré-requisitos
+## 🚀 Extensões Implementadas
 
-Para executar o compilador e os programas gerados, você precisará ter instalado em ambiente Linux (ou WSL):
-- **Python 3.x** (para rodar o compilador).
-- **GCC (GNU Compiler Collection)** (para montagem e ligação do código Assembly).
+O compilador foi estendido muito além da sua especificação original, contando com as seguintes funcionalidades:
 
-## 📁 Estrutura de Arquivos Necessária
+### Extensões Simples
+1. **Novos Operadores de Comparação:** Suporte a `<=` (menor ou igual), `>=` (maior ou igual) e `!=` (diferente).
+2. **Operadores Lógicos:** Avaliação de curto-circuito com `and` e `or`, além do operador unário `not`.
+3. **Atribuição Composta:** Sintaxe enxuta para operações matemáticas diretas na variável (`+=`, `-=`, `*=`, `/=`).
 
-Certifique-se de que todos os arquivos abaixo estão no mesmo diretório:
-- `ev_lexer.py`: Analisador léxico.
-- `ev_parser.py`: Analisador sintático.
-- `ev_ast.py`: Árvore de Sintaxe Abstrata e geração de código x86-64.
-- `ev_semantics.py`: Analisador semântico (escopos e offsets de pilha).
-- `ev_compiler.py`: Orquestrador do compilador.
-- `runtime.s`: Código Assembly de suporte (contém a função `print_int` para exibir resultados na tela).
+### Extensão de Complexidade Média
+1. **Arrays de Inteiros (Vetores):** Suporte completo à declaração, atribuição e acesso a arrays indexados (ex: `vetor[0] = 10;`). A implementação inclui:
+   - **Arrays Globais:** Alocados dinamicamente na seção `.bss` utilizando `.zero` com base no tamanho do array.
+   - **Arrays Locais:** Alocados diretamente no *Stack Frame* da função, ajustando o registrador `%rsp` proporcionalmente ao número de bytes necessários.
+   - Acesso à memória O(1) gerando código Assembly com *Scaled Index Addressing* (`base + índice * 8`).
 
 ---
 
-## 🚀 Como Compilar e Executar um Programa
+## 📋 Pré-requisitos
 
-### Passo 1: Criar o arquivo fonte (`.ev`)
-Crie um arquivo contendo o código na linguagem Fun. Exemplo (`fib.ev`) que calcula o 5º número da sequência de Fibonacci recursivamente:
+Para compilar e executar os códigos em Fun, é necessário um ambiente Linux/WSL com:
+- **Python 3.x**
+- **GCC (GNU Compiler Collection)**
 
+## 📁 Como Compilar e Executar
+
+A compilação é dividida na tradução para Assembly (via Python) e a montagem/ligação (via GCC).
+
+**1. Gere o código Assembly (`out.s`) a partir do arquivo fonte (`.ev`):**
 <pre>
-var x = 0;
-
-fun fib(n) {
-    var res = 0;
-    if n < 2 {
-        res = 1;
-    } else {
-        res = fib(n - 1) + fib(n - 2);
-    }
-    return res;
-}
-
-main {
-    x = fib(5);
-    return x;
-}
+python3 ev_compiler.py arquivo_fonte.ev out.s 
 </pre>
 
-
-### Passo 2: Gerar o código Assembly (.s)
-
-<pre> python3 ev_compiler.py fib.ev out.s </pre>
-
-### Passo 3: Montar o Executável
+**2. Monte o executável**
 <pre> gcc -no-pie -nostartfiles out.s -o programa </pre>
 
-### Passo 4: Executar o Programa
+**3. Execute o Binário**
+<pre> ./programa </pre>
 
-<pre>./programa</pre>
+### Exemplo de código suportado
+
+<pre>
+var vetor_global[2];
+var x = 10;
+
+main {
+    
+    var vetor_local[3];
+    var resultado = 0;
+    
+    # Atribuição Simples e Arrays Locais
+    vetor_local[0] = 5;
+    vetor_local[1] = 10;
+    
+    # Atribuição Composta
+    x += 5; # x vira 15
+    
+    # Arrays Globais
+    vetor_global[0] = vetor_local[1] * 2; # 20
+    
+    # Operadores Lógicos e Novas Comparações
+    if (x >= 15) and not (vetor_global[0] != 20) {
+        resultado = vetor_local[0] + vetor_local[1] + vetor_global[0]; # 5 + 10 + 20
+    } else {
+        resultado = 0;
+    }
+    
+    return resultado; # Retorna 35
+}
+</pre>
