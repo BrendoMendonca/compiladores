@@ -3,40 +3,40 @@ import re
 #definição dos tipos de tokens para a Linguagem Fun
 
 TOKENS = [
-    ('NUM',      r'\d+'),
+    ('NUM',      r'\d+'), #sequência de 1 ou mais dígitos de números inteiros
     ('FUN',      r'fun\b'),     #nova palavra-chave para funções
     ('VAR',      r'var\b'),     #nova palavra-chave para variáveis
     ('MAIN',     r'main\b'),    #nova palavra-chave para o bloco principal
-    ('IF',       r'if\b'),
-    ('ELSE',     r'else\b'),
-    ('WHILE',    r'while\b'),
-    ('RETURN',   r'return\b'),
-    ('ID',       r'[a-zA-Z_][a-zA-Z0-9_]*'),
-    ('LBRACE',   r'\{'),
-    ('RBRACE',   r'\}'),
-    ('LBRACKET', r'\['),
-    ('RBRACKET', r'\]'),
-    ('COMMA',    r','),        
-    ('LE',       r'<='),
-    ('GE',       r'>='),
-    ('NEQ',      r'!='),
-    ('PLUS_ASSIGN',  r'\+='),
-    ('MINUS_ASSIGN', r'-='),
-    ('MUL_ASSIGN',   r'\*='),
-    ('DIV_ASSIGN',   r'/='),
-    ('EQ',       r'=='),
-    ('ASSIGN',   r'='),
-    ('LT',       r'<'),
-    ('GT',       r'>'),
-    ('PLUS',     r'\+'),
-    ('MINUS',    r'-'),
-    ('MUL',      r'\*'),
-    ('DIV',      r'/'),
-    ('LPAREN',   r'\('),
-    ('RPAREN',   r'\)'),
-    ('SEMI',     r';'),
-    ('COMMENT',  r'#.*'),
-    ('WS',       r'\s+'),
+    ('IF',       r'if\b'),#palavra-chave para estrutura condicional se
+    ('ELSE',     r'else\b'),#palavra-chave para estrutura condicional senão
+    ('WHILE',    r'while\b'),#palavra-chave para laço de repetição enquanto
+    ('RETURN',   r'return\b'), #palavra-chave para retornar um valor de uma função
+    ('ID',       r'[a-zA-Z_][a-zA-Z0-9_]*'), #nomes de variáveis/funções
+    ('LBRACE',   r'\{'), #abre chaves '{' para início de um bloco de código
+    ('RBRACE',   r'\}'),# fecha chaves '{' fim de um bloco de código
+    ('LBRACKET', r'\['),#abre colchetes '[' início de um array
+    ('RBRACKET', r'\]'),#fecha colchetes '[' fim de um array
+    ('COMMA',    r','),#vírgula ',' para separar argumentos em funções
+    ('LE',       r'<='),#operador de comparação: Menor ou igual
+    ('GE',       r'>='),#operador de comparação: Maior ou igual
+    ('NEQ',      r'!='),#operador de comparação: Diferente
+    ('PLUS_ASSIGN',  r'\+='),#atribuição composta: Soma e guarda
+    ('MINUS_ASSIGN', r'-='),#atribuição composta: Subtrai e guarda
+    ('MUL_ASSIGN',   r'\*='),#atribuição composta: Multiplica e guarda
+    ('DIV_ASSIGN',   r'/='),#atribuição composta: Divide e guarda
+    ('EQ',       r'=='),#operador de comparação: Igualdade exata
+    ('ASSIGN',   r'='),#atribuição simples: Grava um valor em uma variável
+    ('LT',       r'<'),#operador de comparação: Estritamente menor que
+    ('GT',       r'>'),#operador de comparação: Estritamente maior que
+    ('PLUS',     r'\+'),#operador aritmético: Adição
+    ('MINUS',    r'-'),#operador aritmético: Subtração
+    ('MUL',      r'\*'),#operador aritmético: Multiplicação
+    ('DIV',      r'/'),#operador aritmético: Divisão
+    ('LPAREN',   r'\('),#abre parênteses '(' para agrupamento de expressões e parâmetros
+    ('RPAREN',   r'\)'),#fehca parênteses '(' para agrupamento de expressões e parâmetros
+    ('SEMI',     r';'),#ponto e vírgula ';' marca o fim de um comando
+    ('COMMENT',  r'#.*'),#comentários
+    ('WS',       r'\s+'),#espaço em branco
 ]
 
 class Token:
