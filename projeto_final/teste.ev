@@ -1,24 +1,23 @@
-var vetor_global[2];
+# --- Escopo Global ---
+var vetor1[2];
+var vetor2[3];
 var x = 10;
+var resultado = 0;
 
 main {
-    
-    var vetor_local[3];
-    var resultado = 0;
-    
-    # Atribuição Simples e Arrays Locais
-    vetor_local[0] = 5;
-    vetor_local[1] = 10;
+    # Atribuição Simples
+    vetor2[0] = 5;
+    vetor2[1] = 10;
     
     # Atribuição Composta
     x += 5; # x vira 15
     
-    # Arrays Globais
-    vetor_global[0] = vetor_local[1] * 2; # 20
+    # Operações entre Arrays
+    vetor1[0] = vetor2[1] * 2; # 20
     
     # Operadores Lógicos e Novas Comparações
-    if (x >= 15) and not (vetor_global[0] != 20) {
-        resultado = vetor_local[0] + vetor_local[1] + vetor_global[0]; # 5 + 10 + 20
+    if (x >= 15) and not (vetor1[0] != 20) {
+        resultado = vetor2[0] + vetor2[1] + vetor1[0]; # 5 + 10 + 20
     } else {
         resultado = 0;
     }
